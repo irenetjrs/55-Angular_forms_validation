@@ -1,0 +1,89 @@
+<!-- template_forms
+
+<div class="wrapper">
+<form (ngSubmit)="submit(user)" #user="ngForm">
+    <div class="form-item">
+        <label for="login">Login</label>
+        <input placeholder="Your Login..." id="login" name="login" #login="ngModel" ngModel required
+        pattern="^[a-zA-Z0-9]+$"/>
+        <p *ngIf="login.touched && login.errors?.['required']">
+            This field can`t stay empty!
+        </p>
+        <p *ngIf="login.invalid && login.touched && login.errors?.['pattern']">
+            Not enough, enter more symbols!
+        </p>
+        <p *ngIf="login.invalid && login.touched && login.errors?.['pattern']">
+            Only latin symbols allowed!
+        </p>
+    </div>
+    <div class="form-item">
+        <label for="email">Email</label>
+        <input id="email" placeholder="Your email..." #email="ngModel" email required ngModel>
+        <p *ngIf="email.invalid && email.touched && email.errors?.['required']">
+            This field can`t stay empty!
+        </p>
+        <p *ngIf="email.invalid && email.touched && email.errors?.['email']">
+            Incorrect email!
+        </p>
+    </div>
+    <div class="form-item">
+        <label for="password">Password</label>
+        <input id="password" type="password" placeholder="Your password..." name="password" #password="ngModel"
+            minlength="7" required ngModel>
+        <p *ngIf="password.invalid && password.touched && password.errors?.['required']">
+            This field can`t stay empty!
+        </p>
+        <p *ngIf="password.invalid && password.touched && password.errors?.['minlength']">
+            Password should contain over {{password.errors?.['minlength']['requiredLength']}} symbols
+        </p>
+    </div>
+    <button type="submit">Submit</button>
+</form>
+</div> -->
+
+<!-- reactive_forms -->
+<div class="wrapper">
+    <form [formGroup]="form" (ngSubmit)="submit()">
+        <div class="form-item">
+            <label for="login">Login</label>
+            <input id= "login" placeholder="Your login..." formControlName="login">
+            <p *ngIf="form.get('login')?.['invalid'] && form.get('login')?.['touched'] && form.get('login')?.['errors']?.['required']">
+                This field can`t stay empty!
+            </p>
+            <p *ngIf="form.get('login1')?.['invalid'] && form.get('login1')?.['touched'] && form.get('login1')?.['errors']?.['pattern']">
+                Not enough, enter more symbols!
+            </p>
+            <p *ngIf="form.get('login')?.['invalid'] && form.get('login')?.['touched'] && form.get('login')?.['errors']?.['pattern']">
+                Only latin symbols allowed!
+            </p>
+        </div>
+        <div class="form-item">
+            <label for="email">Email</label>
+            <input id="email" placeholder="Your email..." formControlName="email">
+                <p *ngIf="form.get('email')?.['pending']">
+                    Email is being checked...
+                </p>
+                <p *ngIf="form.get('email')?.['errors']?.['uniqueEmail']">
+                    This email already exists.
+                </p>
+                <p *ngIf="form.get('email')?.['invalid'] && form.get('email')?.['touched'] && form.get('email')?.['errors']?.['required']">
+                    This field can`t stay empty!
+                </p>
+                <p *ngIf="form.get('email')?.['invalid'] && form.get('email')?.['touched'] && form.get('email')?.['errors']?.['email']">
+                    Incorrect email!
+                </p>
+        </div>
+        <div class="form-item">
+            <label for="password">Password</label>
+            <input id="password" placeholder="Your password..." type="password" formControlName="password">
+             <p *ngIf="form.get('password')?.['invalid'] && form.get('password')?.['touched'] && form.get('password')?.['errors']?.['required']">
+                This field can`t stay empty!
+            </p>
+            <p *ngIf="form.get('password')?.['invalid'] && form.get('password')?.['touched'] && form.get('password')?.['errors']?.['minlength']">
+                Password should contain over  {{form.get('password')?.['errors']?.['minlength']?.['requiredLength']}} symbols!
+                You`ve entered only {{form.get('password')?.value?.length}}.
+            </p>
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+</div>
